@@ -195,3 +195,5 @@ while True:
             del_infrom()
         else:
             print('고객정보가 하나도 없습니다!')
+
+            
