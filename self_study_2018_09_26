@@ -1,0 +1,47 @@
+# 실습 2
+# 문제 1
+# A학교에서는 주당 12시간 강의를 기본으로 하고 있다. 만약에 강의 시간이 
+#12시간을 초과하면 초과한 시간에 대해 시간당 급여의 30%를 더 지급한다
+# 주당 총 근무 시간과 A학교의 시간당 급여를 입력받아 1주일 급여를 
+# 계산하는 프로그램을 작성하시오
+
+working_hour = int(input('근무 시간을 입력하시오 : '))
+pay_per_hour = int(input('시간당 수당을 입력하시오 : '))
+
+total_pay = working_hour * pay_per_hour
+
+if working_hour > 12 :
+    additional_pay = (working_hour - 12) * pay_per_hour * 0.3
+    total_pay += additional_pay
+print()
+print('총 급여는', total_pay, '원입니다.')
+
+# 문제 2
+# 하나의 양의 정수를 입력받아서 그 수의 약수를 모두 출력하고 약수의 개수도 출력하시오
+n = int(input('정수를 입력하시오 : '))
+a = 1
+# 약수의 개수를 세기위한 변수를 추가해야 한다
+count = 0
+while a <= n:
+    if n % a == 0: # '약수라면'을 표현한 것이다
+        print(a)
+        count += 1    
+        # while 루프 안에서 if 조건에 맞을 때마다 count의 갯수가 증가해서 약수의 개수를 셀 수 있다
+    a += 1
+print()
+print(n, '의 약수의 개수 : ', count)
+
+# 문제 3
+# 다섯 개의 정수를 하나씩 입력받아서 그 정수들 중에서 가장 큰 값을 출력하시오
+n = int(input('정수를 입력하시오 : '))
+max = n # 첫번째 숫자를 max라 지정해둔다
+
+loop_count = 1
+while loop_count <= 4:
+    n = int(input('정수를 입력하시오 : '))
+    if n > max:
+        max = n
+    loop_count += 1 # 이 코드가 없다면 무한루프를 돌게 된다
+
+print()
+print( '가장 큰 값 : ', max)
