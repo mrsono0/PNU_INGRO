@@ -5,7 +5,7 @@
 
 * * *  
 
-# PNU_INGRO -> [숫자 맞추기 게임 RFP](https://github.com/mrsono0/PNU_INGRO/blob/master/NumericalGame.md "숫자 맞추기 게임 RFP")  
+# PNU_INGRO -> [AI 숫자 맞추기 게임 RFP](https://github.com/mrsono0/PNU_INGRO/blob/master/NumericalGame.md "AI 숫자 맞추기 게임 RFP")  
 ## 1. 주요 내용
 지금 까지 배운 내용을 토대로 AI 숫자 맞추기 게임을 만듭니다.  
 1 ~ 100 사이의 숫자를 추론하여 맞추는 게임 기능을 구현 합니다.  
