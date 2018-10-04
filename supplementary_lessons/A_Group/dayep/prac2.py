@@ -85,7 +85,7 @@ while True:
             else:
                 print('{}고객님의 정보는 없습니다.'.format(choice1))
                 break
-
+ 
     elif choice=="U": # 수정의 개념부터
         while True:
             choice1=input('''수정하시려면 이메일을 입력하세요.''')
