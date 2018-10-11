@@ -1,0 +1,25 @@
+# PNU_INGRO -> AI 숫자 맞추기 게임 RFP
+# 1. descriptions
+# on the basis of academic knowledges in Python, make AI number guess game program
+# guess in the range from 1 to 100
+# socores will be acculated depending on how many times succeed in guessing number
+# find the total score
+# every processes have to be in consol mode 
+import random
+min = 1
+max = 100
+random.randint(1,100)
+answer = int(input("put any number : "))
+print("1<?<100")
+guess = int(input("guess number : "))
+
+while guess != answer:
+    more_attempts = int(input())
+    if guess > answer:
+        print("it is wrong, try to guess smaller", "{0}<?<{1}".format(min,max), sep='\n')
+    elif guess <answer:
+        print("it is wrong, try to guess more larger", "{0}<?<{1}".format(min,max), sep='\n')
+    else:
+        guess == answer
+        print("It is crystal : ".guess)
+        break
