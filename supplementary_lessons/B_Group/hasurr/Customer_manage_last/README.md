@@ -33,9 +33,9 @@ PNU_INGRO -> 고객 정보 관리 시스템 RFP
     * model : SQLAlchemy 를 이용한 orm으로 테이블 정의, 테이블 내의 컬럼 정의
     * view : 사용자 인터페이스 모음 클래스. 모든 메소드는 화면 출력만을 담당
     * controll : 
-        > connectDB     : 데이터베이스와의 상호작용(select, insert, delete, update)을 모두 담당
-        > go            : 프로그램의 실행 로직을 함수로서 정의. 총 프로그램의 실행을 담당
-        > input_manager : 사용자의 입력을 받아오는 클래스. 사용자의 모든 입력은 여기서 담당
+        > connectDB     : 데이터베이스와의 상호작용(select, insert, delete, update)을 모두 담당  
+        > go            : 프로그램의 실행 로직을 함수로서 정의. 총 프로그램의 실행을 담당  
+        > input_manager : 사용자의 입력을 받아오는 클래스. 사용자의 모든 입력은 여기서 담당  
     * cms.__init__ : 
             프로그램 전체를 관리하는 클래스 App이 정의되어 있음.
             전체 프로그램 실행시 필요한 객체들을 생성하고, DB 세션 초기화함
@@ -53,4 +53,3 @@ PNU_INGRO -> 고객 정보 관리 시스템 RFP
 
 
 5. 추가
-    - 
