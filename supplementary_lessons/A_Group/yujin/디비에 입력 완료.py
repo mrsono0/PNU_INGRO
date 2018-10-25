@@ -36,7 +36,7 @@ for i in range(0,5):
     url = 'http://api.gevolution.co.kr/rank/xml/?aCode={code}&market={market}&appType={app_type}&rankType={rank_type}&rank={rank}'.format(code=code, market=market, app_type=app_type, rank_type=idx, rank=rank)
     doc.append(xmltodict.parse(urlopen(url).read()))
 len(doc)
-
+ 
 
 # In[3]:
 
