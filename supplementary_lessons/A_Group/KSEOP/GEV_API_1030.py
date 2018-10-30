@@ -110,20 +110,3 @@ gevo_df_final.to_sql( name='game_info',
 conn.close()
 
 
-# ## 게임 이름을 인덱스로하는건 마지막에하자.
-
-# >>> import pandas as pd
-# >>> import numpy as np
-# >>> df = pd.DataFrame(columns=['lib', 'qty1', 'qty2'])
-# >>> for i in range(5):
-# >>>     df.loc[i] = [np.random.randint(-1,1) for n in range(3)]
-# >>>
-# >>> print(df)
-#     lib  qty1  qty2
-# 0    0     0    -1
-# 1   -1    -1     1
-# 2    1    -1     1
-# 3    0     0     0
-# 4    1    -1    -1
-# 
-# [5 rows x 3 columns]
