@@ -1,0 +1,41 @@
+# 오늘 넣고보니 apptype=5의 price에 null 존재
+# -> 신규 유료라 한시적 무료 제공 혹은 가격 표시 자체가 없는 데이터(<- 애초에 api에서 줄때부터 잘못)
+
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+import xmltodict
+import pandas as pd
+import pymysql as sql
+from sqlalchemy import create_engine
+import pandas.io.sql as pSql
+import re
+import numpy as np
+
+from app3 import *
+
+
+# 입력형 콘솔창 만들기
+# class화 시키고 -> __init__에 만들기
+class Start:
+    def __init__(self):
+        rankType=input(
+            '''
+            받아올 랭킹 데이터의 어플 종류를 입력해주세요.
+            1 : 무료
+            2 : 유료
+            3 : 매출
+            4 : 신규무료
+            5 : 신규유료
+            q : 프로그램 종료
+            ''')
+        if rankType=='q':
+            quit()
+        else:
+            Model(rankType)
+
+
+# 적재된거 가져오기
+
+
+Start()
+
