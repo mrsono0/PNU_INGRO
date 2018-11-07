@@ -63,6 +63,7 @@ def crawlMenuChoice(choice):
     else:
         getWebdata(choice)
 
+################################### DB관련 업무를 실행하는 함수들 - 추후에 추가할 것(필요할시)
 
 # # DB관련 메뉴 선택하는 함수
 # def dbMenuShow():
@@ -173,6 +174,8 @@ def uploadDB(game_df):
     closeDB()
     print('게임랭킹데이터를 DB에 적재완료했습니다.')
 
+
+######################### DB관련 업무 - 추후에 추가하는방안 생각해보기
 
 #사용자에게 검색하고자 하는 제작사를 입력받는 함수
 def inputPublisher():
