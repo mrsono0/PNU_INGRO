@@ -38,7 +38,10 @@ class Start:
 
 
 if __name__ == '__main__':
-    Start.batchver()
+    if sys.argv[1] == '1':
+        Start.batchver()
+    else:
+        Start.consolever()
 
 
 # 오늘 넣고보니 apptype=5의 price에 null 존재
