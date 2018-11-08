@@ -54,3 +54,9 @@ if __name__ == '__main__':
     upload_data()
 else:
     pass
+
+"""
+upload_data.bat
+@echo off
+"C:\ProgramData\Anaconda3\python.exe" "C:\Users\ADMIN\Desktop\LiveShare\GEV_API\upload_data.py"
+"""
