@@ -1,0 +1,82 @@
+import pymysql as my
+class Gameapi_DB_Class:
+    def initDB(self):
+            self.conn = my.connect(
+                        host = 'pythondb.cvprq7ssnngq.ap-northeast-2.rds.amazonaws.com',
+                        # 아마존으로 연결할 경우 
+                        #host = 'pythondb.cvprq7ssnngq.ap-northeast-2.rds.amazonaws.com',
+                        # 로컬로 할경우
+                        #host = 'localhost'
+                        user='root',
+                        password='12341234',
+                        db='pythondb',
+                        charset='utf8',
+                        cursorclass=my.cursors.DictCursor
+                        )
+            return self.conn
+
+
+    def select_today_data(self):
+            rows = None # 쿼리 결과.
+            
+            try:
+                self.initDB()
+                # 3. 쿼리 획득 및 수행 
+                with self.conn.cursor() as cursor:
+                    # 3-2. sql 준비
+                    sql ='''
+                        select * from game_api ORDER BY update_time desc limit 50;
+                    '''
+                    # 3-3. 쿼리 수행
+                    cursor.execute(sql) #sql이 적힌건 sql만 인자로 받기떄문
+                    # 3-4. 결과 처리 및 커서 닫기
+                    rows = cursor.fetchall() # 얘가 출력의 본질임.
+
+            except Exception as e:
+                rows = None
+                print('에러 ->', e)
+            print(rows)
+            if self.conn: self.conn.close()
+
+    def select_week_data(self):
+        rows = None # 쿼리 결과.
+        
+        try:
+            self.initDB()
+            # 3. 쿼리 획득 및 수행 
+            with self.conn.cursor() as cursor:
+                # 3-2. sql 준비
+                sql ='''
+                    select * from game_api ORDER BY update_time desc limit 70;
+                '''
+                # 3-3. 쿼리 수행
+                cursor.execute(sql) #sql이 적힌건 sql만 인자로 받기떄문
+                # 3-4. 결과 처리 및 커서 닫기
+                rows = cursor.fetchall() # 얘가 출력의 본질임.
+
+        except Exception as e:
+            rows = None
+            print('에러 ->', e)
+        print(rows)
+        if self.conn: self.conn.close()
+    
+    ## 주피터 노트북에서 실행 ##
+    ##########################
+    # def WeeK_rankChange_Chart():
+    #     import matplotlib.pyplot as plt
+    #     import seaborn as sns
+    #     import numpy as np
+    #     %matplotlib inline
+    #     import platform 
+    #     from matplotlib import font_manager, rc
+    #     plt.rcParams['axes.unicode_minus']=False
+    #     if platform.system() =='Darwin':#맥
+    #         rc('font',family=='AppleGothic')
+    #     elif platform.system() =='Windows':#윈도우
+    #         fontPath = 'c:/Windows/Fonts/malgun.ttf'
+    #         fontName = font_manager.FontProperties(fname = fontPath).get_name()
+    #         rc('font',family=fontName)
+    #     else:
+    #         print('알수없는 시스템 미적용.')
+    #     select_week_data()
+
