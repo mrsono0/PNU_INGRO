@@ -1,0 +1,44 @@
+from urllib.request import urlopen
+from selenium import webdriver as wd
+# driver = wd.Chrome('./data/chromedriver.exe')
+import pandas as pd
+import xmltodict
+from sqlalchemy import create_engine
+
+### 자동으로 데이터 베이스에 실시간 데이터 적재 // 매일 1시간 마다 적재함
+
+
+class GameAPI_Dev_Class:
+    def devGetCodeAPI(self, code, market, app_type, rank_type, rank):
+        url = 'http://api.gevolution.co.kr/rank/xml/?aCode={code}&market={market}&appType={app_type}&rankType={rank_type}&rank={rank}'.format(code=code, market=market, app_type=app_type, rank_type=rank_type, rank=rank)
+        doc = xmltodict.parse(urlopen(url).read())
+    #   driver.get(url)
+    #   print(doc)
+        game_Info_list =[]
+        for i in range(rank):
+            game_Info=[
+                doc['response']['items']['item'][i]['ranking'],
+                doc['response']['items']['item'][i]['gameName'],
+                doc['response']['items']['item'][i]['lastWeek'],
+                doc['response']['items']['item'][i]['publisher'],
+                doc['response']['items']['item'][i]['googleUrl'],
+                doc['response']['items']['item'][i]['rating']]
+            game_Info_list.append(game_Info)
+            cols =['rank','gameName','lastRank','publisher','googleLink','rating']
+            df = pd.DataFrame(game_Info_list, columns = cols)
+        self.insertGameData(df)
+
+    def insertGameData(self,df):
+        db_url = 'mysql+pymysql://root:12341234@pythondb.cvprq7ssnngq.ap-northeast-2.rds.amazonaws.com:3306/pythondb'
+        engine = create_engine(db_url,encoding='utf8')
+        conn = engine.connect()
+        df.to_sql(name='game_api' , con=engine, if_exists='append',index=False)
+        conn.close()
+
+    def showGameData(self,df):
+        db_url = 'mysql+pymysql://root:12341234@pythondb.cvprq7ssnngq.ap-northeast-2.rds.amazonaws.com:3306/pythondb'
+    
+    
+if __name__ =='__main__':pass
+#    obj = GameAPI_Dev()
+#   obj.devGetCodeAPI(code='CDEF585487', market=MenuDv.market, app_type='game', rank_type=MenuDv.rank_type, rank=10)
