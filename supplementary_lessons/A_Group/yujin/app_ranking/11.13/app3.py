@@ -134,7 +134,6 @@ class Model:
             View.check(doc_df2)
 
 
-    # 받아온 데이터 보여주고 확인하기
 
     # 장르 컬럼 구조 수정
     @classmethod
