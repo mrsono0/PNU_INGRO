@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>구글 앱 랭킹 데이터를 통한 트렌드 분석</title>
+    </head>
+    <body>
+        <h2>랭킹 선택</h2>
+        <fieldset>   
+        <form method='post' action='/'>
+            <input type="radio" name="options" id="option1" value="option1"><strong>DB 데이터 불러오기</strong></input><br>
+            <ul>불러올 랭킹 데이터의 어플 종류<br>
+            1 : 무료<br>
+            2 : 유료<br>
+            3 : 매출<br>
+            4 : 신규무료<br>
+            5 : 신규유료<br>
+            <input type='text' placeholder='1 - 5 중 택일' name='rankType_r'/><br><br>
+            </ul>
+
+            <input type="radio" name="options" id="option2" value="option2"><strong>DB 데이터 적재</strong></input><br>
+            <ul>적재할 랭킹 데이터의 어플 종류<br>
+            (데이터 로딩까지 약 4분정도 소요됩니다)<br>
+            1 : 무료<br>
+            2 : 유료<br>
+            3 : 매출<br>
+            4 : 신규무료<br>
+            5 : 신규유료<br>
+            <input type='text' placeholder='1 - 5 중 택일' name='rankType_w'/><br><br>
+            </ul>
+            <input type='submit'/>
+        </form>
+        </fieldset>
+    </body>
+</html>
