@@ -73,17 +73,3 @@ if __name__ == '__main__':
         Start.flaskver()
     else:
         Start.consolever()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
