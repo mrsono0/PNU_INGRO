@@ -8,23 +8,26 @@ def home():
         return render_template('home2.html')
     else:
         # post 방식일 때는 request.form[] 나 request.form.get() 둘 다 오류 없음
-        if request.form['rankType_r']:
+        if request.form.get(radioVal)=='option1':
             rankType_r = request.form['rankType_r']
             return redirect(url_for('aa'))
-        elif request.form['rankType_w']:
+        else:
             rankType_w = request.form['rankType_w']
             return redirect(url_for('bb'))
+            # if id(option1/option2)가 체크되어 있으면=====================
+            # 시각화 종류 선택 페이지 만들기 ===========================
+            # 받아온 데이터 보여주고 확인하는 페이지 만들기 =============
 
 
 
 @app.route('/aa')
 def aa():
-    return 'rankType_r'
+    return 'read'
 
 
 @app.route('/bb')
 def bb():
-    return 'rankType_w'
+    return 'write'
 
 
 '''
@@ -46,8 +49,6 @@ else:#비정상처리
 
 
 
-# if __name__ =='__main__':
-#     app.run(debug=True)
-
-
+if __name__ =='__main__':
+    app.run(debug=True)
 
