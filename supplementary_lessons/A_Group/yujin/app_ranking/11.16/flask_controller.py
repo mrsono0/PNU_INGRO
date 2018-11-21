@@ -1,5 +1,5 @@
 from flask import Flask, url_for, render_template, request, redirect
-
+from model import selectData
 app = Flask(__name__)
 
 @app.route('/',methods=['GET','POST'])
@@ -10,22 +10,29 @@ def home():
         # post 방식일 때는 request.form[] 나 request.form.get() 둘 다 오류 없음
         if request.form['rankType_r']:
             rankType_r = request.form['rankType_r']
-            return redirect(url_for('aa'))
-        elif request.form['rankType_w']:
+            if rankType_r in ('2','5'):
+                return render_template('step2_read_25.html',rankType=rankType_r)
+
+            else:
+                return render_template('step2_read_134.html',rankType=rankType_r)
+        else:
             rankType_w = request.form['rankType_w']
-            return redirect(url_for('bb'))
+            if rankType_w in ('2','5'):
+                return render_template('step2_write_25.html',rankType=rankType_w)
+            else:
+                return render_template('step2_write_134.html',rankType=rankType_w)
 
+            # if id(option1/option2)가 체크되어 있으면=====================
+            # 시각화 종류 선택 페이지 만들기 ===========================
+            # 받아온 데이터 보여주고 확인하는 페이지 만들기 =============
 
-
-@app.route('/aa')
-def aa():
-    return 'rankType_r'
-
-
-@app.route('/bb')
-def bb():
-    return 'rankType_w'
-
+@app.route('/visual', methods=['POST'])
+def visual():
+    visualType = request.form['visualType_r']
+    rankType = request.form['rankType']
+    if str(visualType) == '1':
+        rows = selectData(rankType)
+        return render_template('step3_read.html', data=rows)
 
 '''
 if uid and upw: # 정상
@@ -46,8 +53,9 @@ else:#비정상처리
 
 
 
-# if __name__ =='__main__':
-#     app.run(debug=True)
+if __name__ =='__main__':
+    app.run(debug=True)
+
 
 
 
