@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <title>구글 앱 랭킹 데이터를 통한 트렌드 분석</title>
+        <!-- jquery 설치 완료-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <title>구글 앱 랭킹 데이터를 통한 트렌드 분석</title>
     </head>
     <body>
         <h2>랭킹 선택</h2>
         <fieldset>   
         <form method='post' action='/'>
-            <input type="radio" name="options" id="option1" value="option1"><strong>DB 데이터 불러오기</strong></input><br>
+            <input type="radio" name="option" id="option1" value="option1" checked='checked'><strong>DB 데이터 불러오기</strong></input><br>
             <ul>불러올 랭킹 데이터의 어플 종류<br>
             1 : 무료<br>
             2 : 유료<br>
@@ -17,7 +19,7 @@
             <input type='text' placeholder='1 - 5 중 택일' name='rankType_r'/><br><br>
             </ul>
 
-            <input type="radio" name="options" id="option2" value="option2"><strong>DB 데이터 적재</strong></input><br>
+            <input type="radio" name="option" id="option2" value="option2"><strong>DB 데이터 적재</strong></input><br>
             <ul>적재할 랭킹 데이터의 어플 종류<br>
             (데이터 로딩까지 약 4분정도 소요됩니다)<br>
             1 : 무료<br>
@@ -27,8 +29,10 @@
             5 : 신규유료<br>
             <input type='text' placeholder='1 - 5 중 택일' name='rankType_w'/><br><br>
             </ul>
-            <input type='submit'/>
+            <button type="submit" name="button" > 다음 </button>
         </form>
         </fieldset>
+
     </body>
 </html>
+
