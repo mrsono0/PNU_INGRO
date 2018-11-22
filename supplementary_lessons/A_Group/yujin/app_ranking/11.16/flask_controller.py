@@ -1,27 +1,29 @@
 from flask import Flask, url_for, render_template, request, redirect
 from model import selectData
+from model_read import getData
 app = Flask(__name__)
+
+rankType=None
 
 @app.route('/',methods=['GET','POST'])
 def home():
+    global rankType
     if request.method =='GET':
         return render_template('home2.html')
     else:
         # post 방식일 때는 request.form[] 나 request.form.get() 둘 다 오류 없음
-        if request.form['rankType_r']:
-            rankType_r = request.form['rankType_r']
-            if rankType_r in ('2','5'):
-                return render_template('step2_read_25.html',rankType=rankType_r)
-
+        if request.form.get('rankType_r'):
+            rankType = request.form['rankType_r']
+            if rankType in ('2','5'):
+                return render_template('step2_read_25.html',rankType=rankType)
             else:
-                return render_template('step2_read_134.html',rankType=rankType_r)
+                return render_template('step2_read_134.html',rankType=rankType)
         else:
-            rankType_w = request.form['rankType_w']
-            if rankType_w in ('2','5'):
-                return render_template('step2_write_25.html',rankType=rankType_w)
+            rankType = request.form['rankType_w']
+            if rankType in ('2','5'):
+                return render_template('step2_write_25.html',rankType=rankType)
             else:
-                return render_template('step2_write_134.html',rankType=rankType_w)
-
+                return render_template('step2_write_134.html',rankType=rankType)
             # if id(option1/option2)가 체크되어 있으면=====================
             # 시각화 종류 선택 페이지 만들기 ===========================
             # 받아온 데이터 보여주고 확인하는 페이지 만들기 =============
@@ -29,10 +31,16 @@ def home():
 @app.route('/visual', methods=['POST'])
 def visual():
     visualType = request.form['visualType_r']
-    rankType = request.form['rankType']
-    if str(visualType) == '1':
+    if visualType == '1':
         rows = selectData(rankType)
-        return render_template('step3_read.html', data=rows)
+        rows = rows[:10]
+        if rankType in ('2','5'):
+            return render_template('step3_read_1_25.html',data=rows)
+        else:
+            return render_template('step3_read_1_134.html',data=rows)
+    elif visualType =='2':
+        return render_template('step3_read_2.html')
+
 
 '''
 if uid and upw: # 정상
@@ -55,7 +63,6 @@ else:#비정상처리
 
 if __name__ =='__main__':
     app.run(debug=True)
-
 
 
 
