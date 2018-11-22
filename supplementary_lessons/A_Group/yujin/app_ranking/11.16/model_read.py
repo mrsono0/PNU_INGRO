@@ -83,7 +83,7 @@ class getData:
         if batch=='console':
             plt.show()
 
-        getData.saveImg(fig,rankType,'genrepie',batch)
+        # getData.saveImg(fig,rankType,'genrepie',batch)
         conn.close()        
 
 
@@ -228,6 +228,8 @@ class getData:
             finaldf.to_csv(path + '/%s_%s_%s.csv' % (plotType,nowtime,rankType), encoding='utf-8-sig')
         else:
             quit()
+
+
 
 
 
