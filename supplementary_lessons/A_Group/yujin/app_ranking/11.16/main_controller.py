@@ -66,23 +66,17 @@ class Start:
 if __name__ == '__main__':
     if sys.argv[1] == '1':
         Start.batchver_save()
-        Start.batchver_read()
         sys.exit()
 
     elif sys.argv[1] == '2':
         Start.flaskver()
+
+    elif sys.argv[1] == '3':
+        Start.batchver_read()
+        sys.exit()
+
     else:
         Start.consolever()
-
-
-
-
-
-
-
-
-
-
 
 
 
