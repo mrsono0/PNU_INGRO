@@ -83,7 +83,7 @@ class getData:
         if batch=='console':
             plt.show()
 
-        # getData.saveImg(fig,rankType,'genrepie',batch)
+        getData.saveImg(fig,rankType,'genrepie',batch)
         conn.close()        
 
 
@@ -189,9 +189,9 @@ class getData:
             )
         if save_q=='y':
             if batch=='console':
-                path = './console_image' 
+                path = './static/console_image' 
             else:
-                path = './batch_image' 
+                path = './static/batch_image' 
             if not os.path.exists(path): 
                 os.mkdir(path)    
             path = path + '/ranktype' + rankType 
@@ -216,9 +216,9 @@ class getData:
             )   
         if save_q=='y':
             if batch=='console':
-                path = './console_csv'
+                path = './static/console_csv'
             else:
-                path = './batch_csv'        
+                path = './static/batch_csv'        
             if not os.path.exists(path): 
                 os.mkdir(path)     
             path = path + '/ranktype' + rankType 
@@ -228,9 +228,4 @@ class getData:
             finaldf.to_csv(path + '/%s_%s_%s.csv' % (plotType,nowtime,rankType), encoding='utf-8-sig')
         else:
             quit()
-
-
-
-
-
 
