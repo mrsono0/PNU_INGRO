@@ -1,17 +1,35 @@
 <!DOCTYPE html>
 <html>
-    <head></head>
+    <head>
+        <!-- jquery 설치 완료-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
     <body style='margin:20px'>
-        <form method='post' action='/visual'>
-            Rank Type : {{rankType}}
-            <ul>원하는 데이터 시각화 서비스를 선택해주세요.<br>
-            1 : 10순위 내 앱 기본 정보<br>
-            2 : 50순위 내 앱 장르별 비율<br>
-            3 : 앱 평가점수 기준 10순위 내림차순 도표<br>
-            <input type='text' placeholder='1 - 3 중 택일' name='visualType_r'/><br><br>
-            </ul>
-            <button type="submit" name="button" > 다음 </button>
-        </form>
+        Rank Type : {{rankType}}
+        50순위 내 앱 장르별 비율 최근 (최대)10개          
+        <table cellspacing="0" border='1'>
+        <colgroup>
+            <col width="300">
+            <col width="180">
+
+        </colgroup>
+        <thead>
+            <tr>
+                <th>파일 이름</th>
+                <th>생성 일자</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data : %}
+            <tr>
+                <td><a href="#" onClick="window.open('{{url_for('image',filename=row ) }}', '_blank')" >{{ row }}</a></td>
+                <td>{{ row[9:13]+'-'+row[13:15]+'-'+row[15:17]+' '+ row[17:19]+':'+row[19:21]+':'+row[21:23] }}</td>    
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        <button type="submit" name="button" > 이전 </button>
+
     </body>
 </html>
 
