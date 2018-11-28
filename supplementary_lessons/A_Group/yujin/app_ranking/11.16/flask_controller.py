@@ -1,5 +1,5 @@
 from flask import Flask, url_for, render_template, request, redirect
-from model import selectData
+from model import selectData, getFiles
 from model_read import getData
 app = Flask(__name__)
 
@@ -39,7 +39,14 @@ def visual():
         else:
             return render_template('step3_read_1_134.html',data=rows)
     elif visualType =='2':
-        return render_template('step3_read_2.html')
+        rows = getFiles(rankType)
+        return render_template('step3_read_2.html', data=rows )
+
+@app.route('/image', methods=['GET'])
+def image():
+    filename = request.args.get('filename')
+    return render_template('image.html',rankType=rankType,filename=filename)
+
 
 
 '''
@@ -63,6 +70,4 @@ else:#비정상처리
 
 if __name__ =='__main__':
     app.run(debug=True)
-
-
 
