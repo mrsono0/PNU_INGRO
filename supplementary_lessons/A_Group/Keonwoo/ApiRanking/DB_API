@@ -1,0 +1,183 @@
+import pymysql as my
+from game_API_dev import GameAPI_Dev_Class
+import sys
+import pandas as pd
+import datetime
+import time
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import platform 
+from matplotlib import font_manager, rc
+import os
+
+obj_API = GameAPI_Dev_Class()
+class Gameapi_DB_Class:
+    def initDB(self):
+            self.conn = my.connect(
+                        host = 'pythondb.cvprq7ssnngq.ap-northeast-2.rds.amazonaws.com',
+                        # 아마존으로 연결할 경우 
+                        #host = 'pythondb.cvprq7ssnngq.ap-northeast-2.rds.amazonaws.com',
+                        # 로컬로 할경우
+                        #host = 'localhost'
+                        user='root',
+                        password='12341234',
+                        db='pythondb',
+                        charset='utf8',
+                        cursorclass=my.cursors.DictCursor
+                         )
+            return self.conn
+
+
+    def select_today_data(self):
+            rows = None
+            
+            try:
+                self.initDB()
+                with self.conn.cursor() as cursor:
+                    sql ='''
+                        select * from game_api ORDER BY update_time desc limit 50;
+                    '''
+                    cursor.execute(sql) 
+                    rows = cursor.fetchall()
+
+            except Exception as e:
+                rows = None
+                print('에러 ->', e)
+            print(rows)
+            if self.conn: self.conn.close()
+
+    def select_week_data(self):
+        rows = None 
+        
+        try:
+            self.initDB()
+            with self.conn.cursor() as cursor:
+                sql ='''
+                    select * from game_api ORDER BY update_time desc limit 70;
+                '''
+                cursor.execute(sql) 
+                rows = cursor.fetchall() 
+
+        except Exception as e:
+            rows = None
+            print('에러 ->', e)
+        # print(rows)
+        df = pd.DataFrame(rows)
+        # print(df)
+        
+        return df
+        if self.conn: self.conn.close()
+
+    def week_RankChart(self):
+        df = self.select_week_data()    
+        df_rank = df.loc[:,['gameName','rank']]
+        try:
+            self.initDB()
+            
+            with self.conn.cursor() as cursor:
+                
+                rank_list = []
+                game_list  = []
+                for i in range(5):
+                    sql ='''
+                        select gameName,rank from game_api where gameName ='%s' ORDER BY update_time desc limit 7;
+                    ''' %(df_rank.loc[i,'gameName'])
+                   
+                    cursor.execute(sql) 
+                    rows = cursor.fetchall()
+                    
+                    # 입력 받은 게임의 순위가 Nan 값일 때 처리 => 최하순위 인 10 부여(추후 parameter로 수정가능)
+                    # 1주일 단위 이므로 7은 상수 고정
+                    if len(rows) != 7:
+                        for i in range(7-len(rows)):
+                            rows.append({'gameName':'%s'%(df_rank.loc[i,'gameName']),'rank':10})
+                    # print(rows)
+
+                    # 게임 리스트의 이름과 순위 디비에서 받은 것 리스트로 저장
+                    for user_key in rows :
+                        game_list.append(user_key['gameName'])
+                        # print(game_set)
+                        rank_list.append(user_key['rank'])
+                        # print(rank_list)
+                    game_set = set()
+                    game_rank_list= []
+
+                    # 중복있는 set의 값들을 순서를 유지한 채로 list로 변환
+                    for e in game_list:
+                        if e not in game_set:
+                            game_rank_list.append(e)
+                            game_set.add(e)
+                    # print(rank_list)
+                    # print(game_rank_list) 
+
+                    # 현재 날짜의 값을 리턴 받아서 최근 7일을 받는 문장
+        except Exception as e:
+            rows = None
+            print('에러 ->', e) 
+        return game_rank_list,rank_list
+
+
+    def Making_weekRank_Chart(self):
+        import time 
+        import pandas as pd
+        now = time.localtime()
+        now_date = "%04d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday)
+        # print(now_date)
+        game_list,rank_list = self.week_RankChart()
+        # print(game_list,rank_list)
+        rank_list = [int (i) for i in rank_list]
+        now = time.localtime()
+        now_date = "%04d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday)
+        alpha = pd.date_range(end='%s'%now_date,periods=7,freq='D')
+
+        df_rankChart = pd.DataFrame(index=game_list,columns=alpha)
+        a0 = rank_list[0:7]
+        a0.reverse()
+        a1 = rank_list[7:14]
+        a1.reverse()
+        a2 = rank_list[14:21]
+        a2.reverse()
+        a3 = rank_list[21:28]
+        a3.reverse()
+        a4 = rank_list[28:35]
+        a4.reverse()
+
+        plt.rcParams['axes.unicode_minus']=False
+        if  platform.system() =='Windows':#윈도우
+            fontPath = 'c:/Windows/Fonts/malgun.ttf'
+            fontName = font_manager.FontProperties(fname = fontPath).get_name()
+            rc('font',family=fontName)
+        else:
+            print('알수없는 시스템 미적용.')
+
+        plt.figure(figsize=(10,6))
+        x_ax = df_rankChart.columns
+                
+        plt.plot(x_ax,a0, label='%s'%game_list[0])
+        plt.plot(x_ax,a1, label='%s'%game_list[1])
+        plt.plot(x_ax,a2, label='%s'%game_list[2])
+        plt.plot(x_ax,a3, label='%s'%game_list[3])
+        plt.plot(x_ax,a4, label='%s'%game_list[4])
+    
+        plt.xlabel('해당 순위 날짜')
+        plt.title("1주일간 게임 1~5위 순위")
+        plt.ylabel('순위')
+        plt.ylim((10.5,0.5))
+        # plt.yticks([1,10])
+        # plt.ylim( tmp1['point'].min()-0.5,tmp1['point'].max()+0.05 )
+        plt.legend()
+        
+        Dir_Month_Name ='%02d' %now.tm_mon
+        
+        PATH_FOR_DIR ='C:/Users/kwdata/Downloads/analysis_project/test/gameAPI/static'
+        file_Name ='week_rank_chart({0}).png'.format(now_date)
+        if not(os.path.isdir(PATH_FOR_DIR+'/'+Dir_Month_Name+'/')):
+            os.makedirs(PATH_FOR_DIR+'/'+Dir_Month_Name+'/')
+        plt.savefig(PATH_FOR_DIR +'/%s/%s'%(Dir_Month_Name,file_Name) )
+        plt.show()
+       
+  
+
+
+    
