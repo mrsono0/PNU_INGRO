@@ -1,0 +1,25 @@
+import os
+from flask import Flask,url_for,render_template,request,redirect
+
+app = Flask(__name__) #첫글자가 대문자이면 클래스일 가능성이 크다.
+
+@app.route('/')
+def home() : 
+  return render_template('home.html')
+
+# UPLOAD_FOLDER1 ='C:/Users/kwdata/Downloads/analysis_project/test/gameAPI/templates'
+# print(UPLOAD_FOLDER1)
+
+
+@app.route('/index', methods=['GET', 'POST'])
+def image(): 
+    return render_template('index.html')
+
+# C:\Users\kwdata\Downloads\analysis_project\test\gameAPI
+
+# 4. 서버 가동
+if __name__ == '__main__' : 
+    app.run(debug=True) 
+else :
+    print('본 모듈은 단독으로 구동시 정상 작동합니다.')
+
