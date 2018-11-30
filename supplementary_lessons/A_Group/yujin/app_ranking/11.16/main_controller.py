@@ -57,10 +57,15 @@ class Start:
         for type in ['2','5']:
             model_read.getData.priceHist(type,'batch')
 
+    def flask_write(rankType):
+        batch='batch'
+        doc, load= Model.loading(Model,rankType,batch)
+        if load == 'ok':
+            Model.makeDataFrame(Model,doc)
+  
 
     def flaskver():
         app.run(debug=True)
-
 
 
 if __name__ == '__main__':
@@ -77,7 +82,4 @@ if __name__ == '__main__':
 
     else:
         Start.consolever()
-
-
-
 
