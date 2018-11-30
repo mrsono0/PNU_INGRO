@@ -1,0 +1,45 @@
+<html>
+<head>
+    <!-- jquery 설치 완료-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+    <body>
+    {# 주식 데이터를 최신순으로 10개만 뿌린다 #}
+    <table cellspacing="0" border='1'>
+    <colgroup>
+        <col width="70">
+        <col width="250">
+        <col width="70">
+        <col width="250">
+        <col width="150">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>ranking</th>
+            <th>gameName</th>
+            <th>score</th>
+            <th>developer</th>
+            <th>genre</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in data : %}
+        {# 해결방안 -> sql에서 해결, 데이터를 받아서 가공 후 렌더링, 렌더링 시 처리 #}
+        {# str() 함수를 인식하는 부분#}
+        {# 데이터 타입을 문자열로 변환 : str() #}
+        {# 슬라이싱 [:끝인덱스 처리] #}
+        {# 순수 타입에 제공되는 함수를 활용 #}
+        <tr>
+            <td>{{ row['ranking'] }}</td>
+            <td>{{ row['gameName'] }}</td>
+            <td>{{ row['score'] }}</td>
+            <td>{{ row['developer'] }}</td>            
+            <td>{{ row['genre'] }}</td>            
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    </body>
+</html>
+
+
