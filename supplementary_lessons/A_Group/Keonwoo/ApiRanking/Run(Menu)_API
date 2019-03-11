@@ -1,0 +1,107 @@
+from gameapi_DB_dev import Gameapi_DB_Class
+import sys
+obj_DB = Gameapi_DB_Class()
+class MenuDv_Class:
+    def func_select(self):
+        while True:
+            Menu_sel = input(
+            '''
+            원하시는 메뉴의 종류를 입력해주세요
+            순위표 보기 :  T 
+            순위 차트 보기 : C
+            ''')
+            if Menu_sel == 'T':
+                Menu_table(self)
+                break
+            elif Menu_sel == 'C':
+                Menu_chart(self)
+                break
+            else:
+                print('정확하게 다시 입력해주세요')
+                continue
+
+        sys.exit()
+
+# class Batch_Class:
+#     Batch_start(1) 
+#     Batch_stop(0)
+        
+
+def Menu_table(self):
+    while True:
+        market_sel = input(
+        '''
+        원하시는 스토어의 종류를 입력해주세요
+        구글 스토어 순위 : G 
+        애플 스토어 순위 : A
+        ''')
+        if market_sel == 'G':
+            self.market ='g'
+            break
+        elif market_sel == 'A':
+            self.makret ='a'
+            break
+        else:
+            print('정확하게 다시 입력해주세요')
+            continue
+    while True:
+        rank_sel = input(
+        '''
+        원하시는 순위의 번호를 입력해주세요
+        무료게임 순위 : 1
+        유료게임 순위 : 2 
+        매출 순위     : 3  
+        ''')
+        if rank_sel == '1':
+            self.rankType ='1'
+            break
+        elif rank_sel == '2':
+            self.rankType ='2'
+            break          
+        elif rank_sel == '3':
+            self.rankType ='3'
+            break
+        else:
+            print('정확하게 다시 입력해주세요')
+            continue
+    while True:
+        DB_sel = input('''
+        원하시는 날짜의 기호를 입력해주세요
+        오늘의 순위를 보시려면   : T
+        이번주의 순위를 보시려면 : W
+        ''' )
+        if DB_sel == 'T':
+            obj_DB.select_today_data()
+            break
+        elif DB_sel == 'W':
+            obj_DB.select_week_data()
+            break
+        else:
+            print('정확하게 다시 입력해주세요')
+            continue
+
+def Menu_chart(self):
+    while True:
+            chart_show = input(
+            '''
+            원하시는 차트의 번호를 입력해주세요
+            현 게임 순위 5위까지의 지난 1주일간 순위변동 차트 : 1
+            ''')
+            if chart_show == '1':
+                obj_DB.Making_weekRank_Chart()
+                break
+            #elif chart_show == '2':
+            #    self.rankType ='2'
+            #    break          
+            
+            else:
+                print('정확하게 다시 입력해주세요')
+                continue  
+
+
+
+if __name__ == '__main__' : 
+    obj=MenuDv_Class()
+    obj.func_select()
+    # obj_DB.Making_weekRank_Chart()
+    

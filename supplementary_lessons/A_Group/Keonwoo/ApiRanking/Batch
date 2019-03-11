@@ -1,0 +1,5 @@
+@echo off
+# 윈도우 스케줄러를 통해 매일 오전 10시에 자동으로 디비에 파일 적재
+C:\Users\kwdata\Downloads\analysis_project\test\gameAPI\game_API_dev.py 
+
+pause
